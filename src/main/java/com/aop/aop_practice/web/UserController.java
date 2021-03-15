@@ -52,13 +52,7 @@ public class UserController {
     //3. application/json -> @RequestBody 어노테이션에 오브젝트로 받으면 됨
     @PostMapping("/user")
     public CommonDto<?> save(@Valid @RequestBody JoinRequestDto dto,  BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            Map<String, String> errorMap=new HashMap<>();
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new CommonDto<>(HttpStatus.BAD_REQUEST.value(), errorMap);
-        }
+
         System.out.println("user : "+dto);
         userRepository.save(dto);
 
@@ -70,14 +64,8 @@ public class UserController {
     return new CommonDto<>(HttpStatus.OK.value(), null);
     }
     @PutMapping("/user/{id}")
-    public CommonDto<?> update(BindingResult bindingResult, @RequestBody UpdateRequestDto dto,@Valid @PathVariable int id){
-        if(bindingResult.hasErrors()){
-            Map<String, String> errorMap=new HashMap<>();
-            for(FieldError error : bindingResult.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new CommonDto<>(HttpStatus.BAD_REQUEST.value(), errorMap);
-        }
+    public CommonDto<?> update(@PathVariable int id,@Valid @RequestBody UpdateRequestDto dto,  BindingResult bindingResult){
+
         System.out.println("update function user: "+dto);
         userRepository.update(dto, id); //update 호출!!!와 신기해~~
         return new CommonDto<>(HttpStatus.OK.value(), null);

@@ -26,8 +26,8 @@ public class UserRepository {
 
     }
     public void update(UpdateRequestDto dto, int id){
-        throw new IllegalArgumentException("잘못된 아규먼트!!"){
-        };
+       /* throw new IllegalArgumentException("잘못된 아규먼트!!"){
+        };*/
 
     }
     public void delete(int id){
